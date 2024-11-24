@@ -1,0 +1,47 @@
+version: '3.9'
+
+services:
+  web:
+    build: .
+    volumes:
+      - static_volume:/app/staticfiles
+    ports:
+      - "3200:3200"
+    restart: always
+    depends_on:
+      - db
+    environment:
+      - MYSQL_HOST=db
+      - MYSQL_PORT=3306
+      - MYSQL_USER="root"
+      - MYSQL_PASSWORD="Vmelvladmlvh1211"
+      - MYSQL_DATABASE="d"
+
+  db:
+    image: mysql:5.7
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_DATABASE: 'd'
+      MYSQL_USER: 'root'
+      MYSQL_PASSWORD: 'Vmelvladmlvh1211'
+      MYSQL_ROOT_PASSWORD: 'Vmelvladmlvh1211'
+    restart: always
+    volumes:
+      - ./d:/var/lib/mysql
+
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    volumes:
+      - static_volume:/usr/share/nginx/html/static
+    ports:
+      - "80:80"
+    depends_on:
+      - web
+    restart: always
+
+volumes:
+  static_volume:
+  db_data:
