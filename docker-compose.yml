@@ -10,17 +10,19 @@ services:
     restart: always
     depends_on:
       - db
+    environment:
+      MYSQL_ROOT_PASSWORD: Vmelvladmlvh1211
+      MYSQL_DATABASE: d
 
   db:
     image: mysql:5.7
     ports:
       - '3306:3306'
     environment:
-      MYSQL_ROOT_PASSWORD: Vmelvladmlvh1211  # Укажите пароль для root
-      MYSQL_DATABASE: d                       # Имя базы данных
+      - MYSQL_HOST=db - MYSQL_PORT=3306 - MYSQL_USER=root - MYSQL_PASSWORD=Vmelvladmlvh1211 - MYSQL_DATABASE=d
     restart: always
     volumes:
-      - ./d:/var/lib/mysql                    # Место для хранения данных базы данных
+      - ./d:/var/lib/mysql
 
   nginx:
     build:
