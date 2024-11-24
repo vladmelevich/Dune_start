@@ -19,7 +19,7 @@ services:
     ports:
       - '3306:3306'
     environment:
-      - MYSQL_HOST=db - MYSQL_PORT=3306 - MYSQL_USER=root - MYSQL_PASSWORD=Vmelvladmlvh1211 - MYSQL_DATABASE=d
+      - MYSQL_HOST=172.24.0.2 - MYSQL_PORT=3306 - MYSQL_USER=root - MYSQL_PASSWORD=Vmelvladmlvh1211 - MYSQL_DATABASE=d
     restart: always
     volumes:
       - ./d:/var/lib/mysql
