@@ -14,7 +14,8 @@ SECRET_KEY = 'django-insecure-_qw%y+*@8&9i-sa9tski$(#d+4t2%8$608ls9c)o8h!k8qt1@(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['147.45.237.94']
+ALLOWED_HOSTS = ['147.45.237.94', 'web']
+
 
 EMAIL_BACKEND ='django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.yandex.ru'
@@ -85,10 +86,11 @@ DATABASES = {
         'NAME': 'd',
         'USER': 'root',
         'PASSWORD': 'Vmelvladmlvh1211',
-        'HOST': '172.26.0.2',
+        'HOST': 'db',  # Измените на имя сервиса базы данных
         'PORT': '3306'
     }
 }
+
 
 
 SESSION_COOKIE_AGE = 1209600
