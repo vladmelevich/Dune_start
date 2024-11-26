@@ -1,42 +1,47 @@
-version: '3.8'
+version: '3.9'
 
 services:
-  db:
-    image: mysql:8.0
-    environment:
-      MYSQL_ROOT_PASSWORD: Vmelvladmlvh1211
-      MYSQL_DATABASE: d
-    ports:
-      - "3306:3306"
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
   web:
     build: .
-    command: gunicorn --workers 2 --bind 0.0.0.0:3200 --timeout 120 dune.wsgi:application
     volumes:
-      - .:/code
+      - static_volume:/app/staticfiles
     ports:
       - "3200:3200"
+    restart: always
     depends_on:
-      db:
-        condition: service_healthy
-    healthcheck:
-      test: ["CMD-SHELL", "curl --fail http://localhost:3200 || exit 1"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
+      - db
+    environment:
+      - MYSQL_HOST=db
+      - MYSQL_PORT=3306
+      - MYSQL_USER="root"
+      - MYSQL_PASSWORD="Vmelvladmlvh1211"
+      - MYSQL_DATABASE="d"
+
+  db:
+    image: mysql:8.0.
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_DATABASE: 'd'
+      MYSQL_USER: 'root'
+      MYSQL_PASSWORD: 'Vmelvladmlvh1211'
+      MYSQL_ROOT_PASSWORD: 'Vmelvladmlvh1211'
+    restart: always
+    volumes:
+      - ./d:/var/lib/mysql
 
   nginx:
-    image: nginx:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    volumes:
+      - static_volume:/usr/share/nginx/html/static
     ports:
       - "80:80"
-      - "443:443"
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf
     depends_on:
-      web:
-        condition: service_healthy
+      - web
+    restart: always
+
+volumes:
+  static_volume:
+  db_data:
