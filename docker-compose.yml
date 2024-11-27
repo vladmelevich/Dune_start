@@ -8,10 +8,12 @@ services:
     ports:
       - "3200:3200"
     restart: always
+    environment:
+      - DJANGO_SETTINGS_MODULE=myproject.settings
 
   nginx:
     build:
-      context:
+      context: .
       dockerfile: Dockerfile.nginx
     volumes:
       - static_volume:/usr/share/nginx/html/static
