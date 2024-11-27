@@ -82,12 +82,8 @@ ASGI_APPLICATION = 'dune.asgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'd',
-        'USER': 'root',
-        'PASSWORD': 'Vmelvladmlvh1211',
-        'HOST': 'db',  # Измените на имя сервиса базы данных
-        'PORT': '3306'
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
