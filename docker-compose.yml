@@ -6,17 +6,17 @@ services:
     volumes:
       - static_volume:/app/staticfiles
     ports:
-      - ""
+      - "3200:3200"
     restart: always
 
   nginx:
     build:
-      context: .
+      context:
       dockerfile: Dockerfile.nginx
     volumes:
       - static_volume:/usr/share/nginx/html/static
     ports:
-      - ""
+      - "80:80"
     depends_on:
       - web
     restart: always
